@@ -184,7 +184,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         TextView newText = new TextView(getContext());
         newText.setId(View.generateViewId());
         newText.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                LinearLayout.LayoutParams.MATCH_PARENT, 60));
         newText.setTextSize(20);
         newText.setGravity(Gravity.CENTER);
         newText.setText(name);
