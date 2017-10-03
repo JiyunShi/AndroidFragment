@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +13,11 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener{
 
     private TheResponse response;
-    private PersonList personList;
+    private String personTexts;
+    MenuFragment menuFragment = new MenuFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(response,filter);
     }
 
+    @Override
+    public void onFragmentInteraction(String person) {
+
+    }
+
 
     class TheResponse extends BroadcastReceiver {
 
@@ -53,29 +60,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(STATUS_DONE)) {
-                String texts = intent.getStringExtra("output");
-                //Log.d("resultReceived", texts);
+                personTexts= intent.getStringExtra("output");
+                Bundle bundle = new Bundle();
+                bundle.putString("datas", personTexts);
+                menuFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().add(R.id.content, menuFragment).commit();
 
-                Gson gson = new Gson();
-                personList = gson.fromJson(texts, PersonList.class);
-                Log.d("result", personList.getPersonList().get(0).email);
             }
         }
 
     }
 
-    class PersonList{
-
-        List<Person> personList;
-        public List<Person> getPersonList() {
-            return personList;
-        }
-
-        public void setPersonList(List<Person> personList) {
-            this.personList = personList;
-        }
-
-
-    }
 
 }
