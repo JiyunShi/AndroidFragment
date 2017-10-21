@@ -111,6 +111,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
+            //attach mListener to MainActivity
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
@@ -171,9 +172,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         }
 
     }
-
-
-
     public void addNameItem(String name){
 
         View sepView = new View(getContext());
